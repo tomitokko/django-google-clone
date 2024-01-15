@@ -1,6 +1,6 @@
 asgiref==3.7.2
 defusedxml==0.7.1
-Django==4.1.13
+Django==5.0
 django-allauth==0.54.0
 django-extensions==3.2.1
 django-googledrive-storage==1.6.0
