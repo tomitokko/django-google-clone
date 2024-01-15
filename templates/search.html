@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <header class="w-full h-12 bg-gray-200 flex justify-between items-center px-4 shadow-sm">
+        <div class="flex items-center">
+            <img class="h-8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" >
+            <div class="ml-4">
+                <a href="/" class="text-blue-600 hover:underline text-sm mr-2">Home</a>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="container mx-auto my-4 px-4">
+        <div class="flex flex-col">
+
+            <form action="search" method="POST">
+                {% csrf_token %}
+                <div class="flex w-full mb-5">
+                    <input type="text" name="search" class="form-input border-2 border-gray-300 rounded-md w-full px-4 py2" value="{{search_query}}">
+                    <button type="submit" class="ml-2 text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600">Search</button>
+                </div>
+            </form>
+
+            <div class="space-y-6">
+
+                {% for result in page_obj %}
+                <div class="max-w-2xl">
+                    <a href="{{result.url}}" class="text-blue-600 hover:underline text-lg">{{result.title}}</a>
+                    <p class="text-gray-500 text-sm">{{result.url}}</p>
+                    <p class="text-gray-500 text-sm">{{result.description}}</p>
+                </div>
+                {% endfor %}
+
+                
+            </div>
+
+
+            <div class="pagination flex justify-center items-center my-8">
+                <nav class="flex rounded-md" aria-label="Pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" class="first-page bg-gray-200 text-gray700 hover:bg-gray-300 px-3 py-2 rounded-l-md border border-gray-300">
+                            First
+                        </a>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="prev-page bg-gray-200 text-gray700 hover:bg-gray-300 px-3 py-2 rounded-l-md border border-gray-300">
+                            Previous
+                        </a>
+                    {% endif %}
+
+                    <span class="current bg-white text-gray-700 px-3 py-2 border border-gray-300">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="next-page bg-gray-200 text-gray700 hover:bg-gray-300 px-3 py-2 rounded-l-md border border-gray-300">
+                            Next
+                        </a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="last-page bg-gray-200 text-gray700 hover:bg-gray-300 px-3 py-2 rounded-r-md border border-gray-300">
+                            Last
+                        </a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

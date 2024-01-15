@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+            extend: {
+                spacing: {
+                '128': '32rem',
+                }
+            }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white h-screen flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center">
+        <img alt="Logo" class="mb-8 w-48" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png">
+        <form action="search" method="POST">
+            {% csrf_token %}
+            <div class="flex items-center rounded-full shadow-lg mb-5">
+                <input name="search" type="text" class="rounded-full w-128 h-12 px-6 border-none" placeholder="Search...">
+                <button type="submit" class="w-12 h-12 flex items-center justify-center rounded-r-full bg-gray-200">
+                    🔍
+                </button>
+            </div>
+
+            <div class="flex space-x-4">
+                <button type="submit" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    Google Search
+                </button>
+                <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    I'm feeling lucky
+                </button>
+            </div>
+        </form>
+    </div>
+    <footer class="fixed bottom-0 w-full py-4 bg-gray-100">
+        <div class="text-center text-sm text-gray-600">
+            Copyright
+        </div>
+    </footer>
+</body>
+</html>
